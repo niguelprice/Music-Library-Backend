@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -20,6 +21,6 @@ def song_list(request):
 
 @api_view(['GET'])
 def song_detail(request, pk):
-
-    print(pk)
-    return Response(pk)
+    song = get_object_or_404(Song, pk=pk)
+    serializer = SongSerializer(song)
+    return Response(serializer.data)
